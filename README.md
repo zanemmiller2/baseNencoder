@@ -1,6 +1,6 @@
 # c-base64encoder
 
-_base64encode [file_name]_
+_base64encode [char file_name]_
 
 ## Description:
 
