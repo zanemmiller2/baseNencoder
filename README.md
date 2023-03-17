@@ -17,7 +17,7 @@ Takes at most 1 file path (or reads from standard input if no file path or file 
 
 base32 encoding is completed by taking a block of five octets (40 bit string) and converting it to eight BASE32 characters.
 
-base64 encoding is completed by taking a block of 3 octets (24 bit string) and converting it to 4 BASE64 characters.
+base64 encoding is completed by taking a block of three octets (24 bit string) and converting it to four BASE64 characters.
 
 Prints to standard output wrapping to a new line every 76 characters. Pads incomplete output strings with "=".
 
