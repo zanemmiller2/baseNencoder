@@ -79,7 +79,7 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  /* ------------------------ Process ------------------------ */
+  /* ------------------------ Encode ------------------------ */
   if(strcmp(baseN, "32") == 0){
     encodeBase32(fd);
   }
@@ -91,7 +91,7 @@ int main(int argc, char* argv[]) {
   return 0;
 }
 
-/* readin: reads data from input_fd and stores it in inBuffer */
+/* encodeBase64: reads data from input_fd enodes it in base64, and stores it in inBuffer */
 int encodeBase64(int fd_in) {
   ssize_t nread, nwrite;
   int count = 0, i;
@@ -142,7 +142,7 @@ int encodeBase64(int fd_in) {
 }
 
 
-/* readinBase32: reads data from input_fd and stores it in inBuffer */
+/* encodeBase32: reads data from input_fd enodes it in base32, and stores it in inBuffer */
 void encodeBase32(int fd_in) {
   ssize_t nread, nwrite;
   int count = 0, i, j;
