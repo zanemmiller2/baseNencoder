@@ -59,7 +59,6 @@ A test file (generated with 'head -c1000000 /dev/random > testfile') is supplied
 > ```
 
 <br/>
-<br/>
 
 ### AUTHOR:
 
