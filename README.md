@@ -8,7 +8,6 @@ _base64encode [OPTION] [FILE]_
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-n encodes in given base number. Defaults to base64 encoding if -n flag not supplied.
 
 <br/>
-<br/>
 
 ## DESCRIPTION:
 
@@ -23,13 +22,14 @@ base64 encoding is completed by taking a block of 3 octets (24 bit string) and c
 Prints to standard output wrapping to a new line every 76 characters. Pads incomplete output strings with "=".
 
 <br/>
-<br/>
 
 ## COMPILE:
 
 > ```bash
 > gcc main.c base32encoder.c base64encoder.c parsecl.c -o baseNencode
 > ```
+
+<br/>
 
 ## EXAMPLES:
 
