@@ -1,29 +1,63 @@
-# c-base64encoder
+# baseNencoder
 
-_base64encode [char file_name]_
+## SUMMARY
 
-## Description:
+_base64encode [OPTION] [FILE]_
 
-C program that encodes binary data in base 64 and prints to stdout.
+&nbsp;&nbsp;&nbsp;&nbsp;Options:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-n encodes in given base number. Defaults to base64 encoding if -n flag not supplied.
+
+<br/>
+<br/>
+
+## DESCRIPTION:
+
+C program that encodes binary data in base 32 or base 64 and prints to stdout.
 
 Takes at most 1 file path (or reads from standard input if no file path or file argument is "-").
 
-Converts 24 bits (3 bytes) of input data and encodes it in base64 (4 bytes).
+base32 encoding is completed by taking a block of five octets (40 bit string) and converting it to eight BASE32 characters.
 
-Prints to standard output wrapping to a new line every 76 characters. Pads incomplete bytes with "=".
+base64 encoding is completed by taking a block of 3 octets (24 bit string) and converting it to 4 BASE64 characters.
+
+Prints to standard output wrapping to a new line every 76 characters. Pads incomplete output strings with "=".
+
+<br/>
+<br/>
+
+## EXAMPLES:
 
 A test file (generated with 'head -c1000000 /dev/random > testfile') is supplied for testing.
 
-## Run Instructions:
+- #### to run sample test file in base64:
 
-- #### to run sample test file:
-
-      ./base64encode testfile
+> ```bash
+> ./baseNencode testfile
+> ./baseNencode -n 64 testfile
+> ```
 
 - #### to encode from stdandard input:
 
-      ./base64encode
+> ```bash
+> ./baseNencode
+> ./baseNencode -n 32
+> ./baseNencode -n 64
+> ```
 
 - #### to compare outputs with base64 builtin function:
 
-      cmp -l <(./base64encode < testfile) <(base64 testfile)
+> ```bash
+> cmp -l <(./baseNencode -n 64 < testfile) <(base64 testfile)
+> cmp -l <(./baseNencode < testfile) <(base64 testfile)
+> cmp -l <(./baseNencode -n 32 < testfile) <(base32 testfile)
+> ```
+
+<br/>
+<br/>
+
+### AUTHOR:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Written by:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zane Miller  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<millerzanem@gmail.com>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<https://github.com/zanemmiller2/baseNencoder>
