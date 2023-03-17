@@ -33,7 +33,11 @@ Prints to standard output wrapping to a new line every 76 characters. Pads incom
 
 ## EXAMPLES:
 
-A test file (generated with 'head -c1000000 /dev/random > testfile') is supplied for testing.
+A test file is supplied for testing generated with:
+
+> ```bash
+> head -c1000000 /dev/random > testfile
+> ```
 
 - #### to run sample test file in base64:
 
