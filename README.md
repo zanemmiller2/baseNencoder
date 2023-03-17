@@ -64,7 +64,13 @@ A test file is supplied for testing generated with:
 
 <br/>
 
-### AUTHOR:
+## NOTES:
+
+Planned expansion is to add base16 encoding functionality and decoding functionality for all three bases (16, 32, 64). Also plan to include base32Hex encoding and --wrap and --ignore-garbage flags.
+
+<br/>
+
+## AUTHOR:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Written by:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zane Miller  
