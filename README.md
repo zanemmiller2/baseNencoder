@@ -25,6 +25,12 @@ Prints to standard output wrapping to a new line every 76 characters. Pads incom
 <br/>
 <br/>
 
+## COMPILE:
+
+> ```bash
+> gcc main.c base32encoder.c base64encoder.c parsecl.c -o baseNencode
+> ```
+
 ## EXAMPLES:
 
 A test file (generated with 'head -c1000000 /dev/random > testfile') is supplied for testing.
