@@ -15,9 +15,11 @@ C program that encodes binary data in base 32 or base 64 and prints to stdout.
 
 Takes at most 1 file path (or reads from standard input if no file path or file argument is "-").
 
-base32 encoding is completed by taking a block of five octets (40 bit string) and converting it to eight BASE32 characters.
+<ins>base16 encoding</ins> is completed by taking a block of one octet (8 bit string) and converting it to two BASE16 characters.
 
-base64 encoding is completed by taking a block of three octets (24 bit string) and converting it to four BASE64 characters.
+<ins>base32 encoding</ins> is completed by taking a block of five octets (40 bit string) and converting it to eight BASE32 characters.
+
+<ins>base64 encoding</ins> is completed by taking a block of three octets (24 bit string) and converting it to four BASE64 characters.
 
 Prints to standard output wrapping to a new line every 76 characters. Pads incomplete output strings with "=".
 
@@ -26,7 +28,7 @@ Prints to standard output wrapping to a new line every 76 characters. Pads incom
 ## COMPILE:
 
 > ```bash
-> gcc main.c base32encoder.c base64encoder.c parsecl.c -o baseNencode
+> gcc main.c base16encoder.c base32encoder.c base64encoder.c parsecl.c -o baseNencode
 > ```
 
 <br/>
@@ -39,10 +41,12 @@ A test file is supplied for testing generated with:
 > head -c1000000 /dev/random > testfile
 > ```
 
-- #### to run sample test file in base64:
+- #### to run sample test file:
 
 > ```bash
 > ./baseNencode testfile
+> ./baseNencode -n 16 testfile
+> ./baseNencode -n 32 testfile
 > ./baseNencode -n 64 testfile
 > ```
 
@@ -50,23 +54,25 @@ A test file is supplied for testing generated with:
 
 > ```bash
 > ./baseNencode
+> ./baseNencode -n 16
 > ./baseNencode -n 32
 > ./baseNencode -n 64
 > ```
 
-- #### to compare outputs with base64 builtin function:
+- #### to compare outputs with base64 and base32 builtin function:
 
 > ```bash
 > cmp -l <(./baseNencode -n 64 < testfile) <(base64 testfile)
 > cmp -l <(./baseNencode < testfile) <(base64 testfile)
 > cmp -l <(./baseNencode -n 32 < testfile) <(base32 testfile)
+>
 > ```
 
 <br/>
 
 ## NOTES:
 
-Planned expansion is to add base16 encoding functionality and decoding functionality for all three bases (16, 32, 64). Also plan to include base32Hex encoding and --wrap and --ignore-garbage flags.
+Planned expansion is to add decoding functionality for all three bases (16, 32, 64). Also plan to include base32Hex encoding and --wrap and --ignore-garbage flags.
 
 <br/>
 

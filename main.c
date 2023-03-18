@@ -9,6 +9,7 @@ int main(int argc, char* argv[]) {
 
   /* ------------- Parse Command Line Arguments ------------- */
   parsecl(argc, argv, &option, &baseN, &file_name);
+  printf("option: %s, base: %s, filename: %s\n", option, baseN, file_name);
 
 
   /* ----------------- Get Input Descriptor ----------------- */
@@ -23,6 +24,9 @@ int main(int argc, char* argv[]) {
   /* ------------------------ Encode ------------------------ */
   if(strcmp(baseN, "32") == 0){
     encodeBase32(fd);
+  }
+  if(strcmp(baseN, "16") == 0){
+    encodeBase16(fd);
   }
   // default base64
   else{
