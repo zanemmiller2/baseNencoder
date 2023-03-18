@@ -45,8 +45,17 @@ A test file is supplied for testing generated with:
 
 > ```bash
 > ./baseNencode testfile
+> ```
+>
+> ```bash
 > ./baseNencode -n 16 testfile
+> ```
+>
+> ```bash
 > ./baseNencode -n 32 testfile
+> ```
+>
+> ```bash
 > ./baseNencode -n 64 testfile
 > ```
 
@@ -54,8 +63,17 @@ A test file is supplied for testing generated with:
 
 > ```bash
 > ./baseNencode
+> ```
+>
+> ```bash
 > ./baseNencode -n 16
+> ```
+>
+> ```bash
 > ./baseNencode -n 32
+> ```
+>
+> ```bash
 > ./baseNencode -n 64
 > ```
 
@@ -63,7 +81,13 @@ A test file is supplied for testing generated with:
 
 > ```bash
 > cmp -l <(./baseNencode -n 64 < testfile) <(base64 testfile)
+> ```
+>
+> ```bash
 > cmp -l <(./baseNencode < testfile) <(base64 testfile)
+> ```
+>
+> ```bash
 > cmp -l <(./baseNencode -n 32 < testfile) <(base32 testfile)
 >
 > ```
