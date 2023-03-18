@@ -24,4 +24,5 @@ static char const alphabet16[] = "0123456789ABCDEF=";
 void encodeBase64(int fd);
 void encodeBase32(int fd);
 void encodeBase16(int fd);
+void decodeBase64(int fd);
 void parsecl(int argc, char* argv[], char** option, char** baseN, char** file_name);
