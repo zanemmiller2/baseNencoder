@@ -29,7 +29,8 @@ void main(int argc, char* argv[]) {
   }
   // default base64
   else {
-    decodeBase64(fd);
+    encodeBase64(fd);
+    // decodeBase64(fd);
     
 
   // return 0;
