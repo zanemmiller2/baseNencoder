@@ -32,7 +32,7 @@ void encodeBase64(int fd_in) {
       outBuf[i] = alphabet64[64];             // pad output if less than 3 bytes
     }
 
-    /* -----------------------    printf("file name: %s\n", file_name);--- Write -------------------------- */
+    /* -------------------------- Write -------------------------- */
     for (size_t offset = 0; offset < OUTBUFFSIZE64;) {
       if ((nwrite = write(STDOUT_FILENO, offset + (char*)outBuf, OUTBUFFSIZE64 - offset)) < 0) {
         perror("error");

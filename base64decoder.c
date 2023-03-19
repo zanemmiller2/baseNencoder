@@ -4,36 +4,56 @@
 #define INBUFFSIZE64 4
 #define OUTBUFFSIZE64 3
 
-typedef struct {
-  char* key;
-  int index;
-} item;
-
-item* linear_search(item* items, size_t size, const char* key) {
-  for (size_t i = 0; i < size; i++) {
-    if (strcmp(items[i].key, key) == 0) {
-      return &items[i];
-    }
-  }
-  return NULL;
-}
-
-const item base64indicies[] = { {"A", 0}, {"B", 1}, {"C", 2}, {"D", 3}, {"E", 4}, {"F", 5}, {"G", 6}, {"H", 7}, 
-                 {"I", 8}, {"J", 9}, {"K", 10}, {"L", 11}, {"M", 12}, {"N", 13}, {"O", 14}, {"P", 15},
-                 {"Q", 16}, {"R", 17}, {"S", 18}, {"T", 19}, {"U", 20}, {"V", 21}, {"W", 22}, {"X", 23},
-                 {"Y", 24}, {"Z", 25}, {"a", 26}, {"b", 27}, {"c", 28}, {"d", 29}, {"e", 30}, {"f", 31},
-                 {"g", 32}, {"h", 33}, {"i", 34}, {"j", 35}, {"k", 36}, {"l", 37}, {"m", 38}, {"n", 39},
-                 {"o", 40}, {"p", 41}, {"q", 42}, {"r", 43}, {"s", 44}, {"t", 45}, {"u", 46}, {"v", 47},
-                 {"w", 48}, {"x", 49}, {"y", 50}, {"z", 51}, {"0", 52}, {"1", 53}, {"2", 54}, {"3", 55},
-                 {"4", 56}, {"5", 57}, {"6", 58}, {"7", 59}, {"8", 60}, {"9", 61}, {"+", 62}, {"/", 63}, {"=", 64}};
-const ssize_t num_chars = sizeof(base64indicies) / sizeof(item);
-
 /* base64 decoder:  decodes data in base64 format to ascii */
-void decodeBase64(int fd){
-  ssize_t nread, nwrite;
-  int count = 0, i;
-  uint8_t inBuf[INBUFFSIZE64], outBuf[OUTBUFFSIZE64];
+void decodeBase64(int fd_in) {
+  size_t nread, nwrite;
+  int i, j;
+  uint8_t inBuf[INBUFFSIZE64];
+  char outBuf[OUTBUFFSIZE64];
+  int indexes[INBUFFSIZE64];
+  
+  // any block of encoded characters less than 
+  while ((nread = read(fd_in, inBuf, INBUFFSIZE64)) == INBUFFSIZE64) {
+    if (nread < 0) {
+      perror("error");
+      exit(-1);
+    }
+    
+    // conver the ascii index to base64 index
+    for (j = 0; j < nread; j++) {
+      indexes[j] = 0;
+      for (i = 0; i < 64; i++) {
+        if (alphabet64[i] == inBuf[j]) {
+          // remove prefix "00" from each encoded character
+          indexes[j] = (i << 2);
+          break;
+        }
+      }
+    }
+    
+    outBuf[0] = ((indexes[0] & 0xFC) | (indexes[1] >> 6));
+    outBuf[1] = (((indexes[1] << 2) & 0xF0) | (indexes[2] >> 4));
+    outBuf[2] = (((indexes[2] << 4) & 0xC0) | (indexes[3] >> 2));
 
-  item* found = linear_search(base64indicies, num_chars, "G");
-  printf("%d\n", found->index);
+    if(inBuf[INBUFFSIZE64 - 1] == '='){
+      outBuf[2] = 0;
+    }
+    if(inBuf[INBUFFSIZE64 - 2] == '='){
+      outBuf[1] = 0;
+    }
+
+    if(inBuf[INBUFFSIZE64 - 3] == '='){
+      outBuf[0] = 0;
+    }
+
+    /* -------------------------- Write -------------------------- */
+    for (size_t offset = 0; offset < OUTBUFFSIZE64;) {
+      if ((nwrite = write(STDOUT_FILENO, offset + (char*)outBuf, OUTBUFFSIZE64)) < 0) {
+        perror("error");
+        exit(-1);
+      }
+      offset += nwrite;
+  }
+
+}
 }

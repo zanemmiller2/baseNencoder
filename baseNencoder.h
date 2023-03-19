@@ -6,7 +6,7 @@
 #include <stdio.h>      // printf, perror
 #include <stdlib.h>     // exit
 #include <string.h>     // strcmp
-
+#include <stdbool.h>    // bool
 // ------------ defines ------------
 #define MAXLINE 76
 

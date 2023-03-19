@@ -1,7 +1,7 @@
 // --------- includes -------------
 #include "baseNencoder.h"
 
-int main(int argc, char* argv[]) {
+void main(int argc, char* argv[]) {
   int fd = STDIN_FILENO;
   char* option;
   char* baseN = "64";
@@ -9,7 +9,6 @@ int main(int argc, char* argv[]) {
 
   /* ------------- Parse Command Line Arguments ------------- */
   parsecl(argc, argv, &option, &baseN, &file_name);
-  printf("option: %s, base: %s, filename: %s\n", option, baseN, file_name);
 
 
   /* ----------------- Get Input Descriptor ----------------- */
@@ -33,7 +32,7 @@ int main(int argc, char* argv[]) {
     encodeBase64(fd);
   }
 
-  return 0;
+  // return 0;
 }
 
 
