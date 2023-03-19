@@ -19,7 +19,7 @@ int b64_isvalidchar(char c)
 }
 
 
-/* base64 decoder:  decodes data in base64 format to ascii */
+/* decodeBase64:  decodes data in base64 format to ascii */
 void decodeBase64(int fd_in) {
   size_t nread, nwrite;
   int i, j, count;
