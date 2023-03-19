@@ -21,18 +21,19 @@ void main(int argc, char* argv[]) {
   }
 
   /* ------------------------ Encode ------------------------ */
-  if(strcmp(baseN, "32") == 0){
+  if (strcmp(baseN, "32") == 0) {
     encodeBase32(fd);
   }
-  if(strcmp(baseN, "16") == 0){
+  if (strcmp(baseN, "16") == 0) {
     encodeBase16(fd);
   }
   // default base64
-  else{
-    encodeBase64(fd);
-  }
+  else {
+    decodeBase64(fd);
+    
 
   // return 0;
+}
 }
 
 
