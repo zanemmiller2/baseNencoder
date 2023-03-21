@@ -84,6 +84,13 @@ void decodeBase32(int fd_in) {
 
       /* -------------------------- Write -------------------------- */
       writedecoded(STDOUT_FILENO, outBuf, count * 5 / 8);
+
+      // Sanitze arrays
+      memset(outBuf, 0, DECODER_OUTBUFFSIZE_32);
+      memset(indexes, 0, DECODER_INBUFFSIZE_32);
+      memset(inBuf, 0, DECODER_INBUFFSIZE_32);
+      memset(buffchar, 0, 2);
+
       count = 0;
     }
   }

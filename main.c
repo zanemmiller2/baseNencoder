@@ -32,7 +32,19 @@ int main(int argc, char* argv[]) {
     else {
       encodeBase64(fd);
     }
-    return 0;
+  }
+
+  /* ------ BASE58 ------ */
+  else if (strcmp(baseN, "58") == 0) {
+    // decode base58
+    if (strcmp(option, "-d") == 0) {
+      printf("BASE58 DECODING NOT IMPLEMENTED YET\n");
+      exit(-1);
+    }
+    // encode base58
+    else {
+      encodeBase58(fd);
+    }
   }
 
   /* ------ BASE32 ------ */
@@ -61,7 +73,7 @@ int main(int argc, char* argv[]) {
   else {
     printf("UNKNOWN ERROR...\n");
   }
-
+  return 0;
 }
 
 

@@ -60,6 +60,13 @@ void decodeBase16(int fd_in) {
 
       /* -------------------------- Write -------------------------- */
       writedecoded(STDOUT_FILENO, outBuf, count / 2);
+
+      // Sanitze arrays
+      memset(outBuf, 0, DECODER_OUTBUFFSIZE_16);
+      memset(indexes, 0, DECODER_INBUFFSIZE_16);
+      memset(inBuf, 0, DECODER_INBUFFSIZE_16);
+      memset(buffchar, 0, 2);
+
       count = 0;
     }
   }

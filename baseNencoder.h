@@ -7,7 +7,7 @@
 #include <stdlib.h>     // exit
 #include <string.h>     // strcmp
 #include <stdbool.h>    // bool
-// ------------ defines ------------
+// ------------ global defines ------------
 #define MAXLINE76 76
 #define MAXLINE60 60
 

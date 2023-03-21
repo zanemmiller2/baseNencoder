@@ -23,7 +23,7 @@ int b64_isvalidchar(char c)
 void decodeBase64(int fd_in) {
   size_t nread, nwrite;
   int i, j, count;
-  uint8_t inBuf[DECODER_INBUFFSIZE_64], outBuf[DECODER_OUTBUFFSIZE_64], indexes[DECODER_INBUFFSIZE_64], buffchar[1];
+  uint8_t inBuf[DECODER_INBUFFSIZE_64], outBuf[DECODER_OUTBUFFSIZE_64], indexes[DECODER_INBUFFSIZE_64], buffchar[2];
   count = 0;
 
   // read in 1 byte at a time -- checking for only valid b64 characters
@@ -72,6 +72,14 @@ void decodeBase64(int fd_in) {
 
       /* -------------------------- Write -------------------------- */
       writedecoded(STDOUT_FILENO, outBuf, count * 3 / 4);
+
+
+      // Santize Arrays
+      memset(outBuf, 0, DECODER_OUTBUFFSIZE_64);
+      memset(inBuf, 0, DECODER_INBUFFSIZE_64);
+      memset(indexes, 0, DECODER_INBUFFSIZE_64);
+      memset(buffchar, 0, 2);
+
       count = 0;
     }
   }
