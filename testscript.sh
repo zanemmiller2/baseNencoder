@@ -12,8 +12,11 @@ gcc main.c base16encoder.c base32encoder.c base64encoder.c base64decoder.c base1
 ################################################
 #		BASE64 TESTS
 ################################################
-head -c1000 /dev/random > testfile64_raw
-base64 testfile64_raw > encodedbase64
+
+# make base64 test files
+# head -c1000 /dev/random > testfile64_raw
+# base64 testfile64_raw > encodedbase64
+
 echo -e "${BLUE}Testing base64 encoding from file with no flags${NC}"
 result=$(cmp -l <(./baseNencode testfile64_raw) <(base64 testfile64_raw))
 if ["$result" == ""]; then echo -e "${GREEN}Success${CHECKMARK}${NC}\n";
@@ -38,8 +41,10 @@ else echo -e "${RED}Error: $result${NC}\n"; fi;
 ##################################################
 #		BASE16 TESTS
 ##################################################
-head -c1000 /dev/random > testfile16_raw
-(cat testfile16_raw | xxd -p -u) > encodedbase16
+
+# make base16 test files 
+# head -c1000 /dev/random > testfile16_raw
+# (cat testfile16_raw | xxd -p -u) > encodedbase16
 
 echo -e "${BLUE}Testing base16 encoding from file with -n 16 flag${NC}"
 result=$(cmp -l <(./baseNencode -n 16 testfile16_raw) <(cat testfile16_raw | xxd -p -u))
@@ -54,7 +59,9 @@ else echo -e "${RED}Error: $result${NC}\n"; fi;
 ##################################################
 #		BASE32 TESTS
 ##################################################
-head -c1000 /dev/random > testfile32_raw
+
+# make base32 testfiles
+# head -c1000 /dev/random > testfile32_raw
 
 echo -e "${BLUE}Testing base32 encoding from file with -n 32 flag${NC}"
 result=$(cmp -l <(./baseNencode -n 32 testfile32_raw) <(base32 testfile32_raw))
