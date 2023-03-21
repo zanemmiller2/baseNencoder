@@ -20,8 +20,9 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  /* ------------------------ Encode ------------------------ */
-    // default
+  /* ------------------------ Encode/Decode ------------------------ */
+
+  /* ------ BASE64 ------ */
   if (strcmp(baseN, "64") == 0) {
     // decode base64
     if (strcmp(option, "-d") == 0) {
@@ -33,6 +34,8 @@ int main(int argc, char* argv[]) {
     }
     return 0;
   }
+
+  /* ------ BASE32 ------ */
   else if (strcmp(baseN, "32") == 0) {
     if (strcmp(option, "-d") == 0) {
       // decode base32
@@ -43,7 +46,8 @@ int main(int argc, char* argv[]) {
       encodeBase32(fd);
     }
   }
-  // base 16
+
+  /* ------ BASE16 ------ */
   else if (strcmp(baseN, "16") == 0) {
     // decode base16
     if (strcmp(option, "-d") == 0) {

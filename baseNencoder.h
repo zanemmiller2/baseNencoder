@@ -19,11 +19,13 @@
 
 // ------------ globals -------------
 static char const alphabet64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+static char const alphabet58[] = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 static char const alphabet32[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=";
 static char const alphabet16[] = "0123456789ABCDEF=";
 
 // ----- function declarations ------
 void encodeBase64(int fd);
+void encodeBase58(int fd);
 void encodeBase32(int fd);
 void encodeBase16(int fd);
 void decodeBase64(int fd);
