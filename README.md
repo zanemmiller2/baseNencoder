@@ -5,21 +5,26 @@
 _base64encode [OPTION] [FILE]_
 
 &nbsp;&nbsp;&nbsp;&nbsp;Options:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-n encodes in given base number. Defaults to base64 encoding if -n flag not supplied.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-n [BASE] encodes in given base number. Defaults to base64 encoding if -n flag not supplied.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-d [BASE] decodes in given base number. Defaults to base64 decoding if -d flag not supplied. or -d flag supplied with no [BASE]
 
 <br/>
 
 ## DESCRIPTION:
 
-C program that encodes binary data in base 32 or base 64 and prints to stdout.
+C program that encodes and decodes data in base 16, 32 or 64 and prints to stdout.
 
 Takes at most 1 file path (or reads from standard input if no file path or file argument is "-").
 
 <ins>base16 encoding</ins> is completed by taking a block of one octet (8 bit string) and converting it to two BASE16 characters.
 
+<ins>base16 decoding</ins> is completed by taking a block of two octets (16 bit string) of base16 characters and converting it to one ASCII characters.
+
 <ins>base32 encoding</ins> is completed by taking a block of five octets (40 bit string) and converting it to eight BASE32 characters.
 
 <ins>base64 encoding</ins> is completed by taking a block of three octets (24 bit string) and converting it to four BASE64 characters.
+
+<ins>base64 decoding</ins> is completed by taking a block of four base64 characters and converting it to three ASCII characters.
 
 Prints to standard output wrapping to a new line every 76 characters. Pads incomplete output strings with "=".
 
