@@ -19,42 +19,23 @@ gcc main.c base16encoder.c base16decoder.c base32encoder.c base32decoder.c base6
 
 echo -e "${BLUE}TESTING BASE64 ENCODING FROM FILE (baseNencode testfile64_raw)${NC}"
 result=$(cmp -l <(./baseNencode testfile64_raw) <(base64 testfile64_raw))
-if ["$result" == ""]; then echo -e "${GREEN}Success${CHECKMARK}${NC}\n";
-else echo -e "${RED}Error: $result${NC}\n"; fi;
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 
 echo -e "${BLUE}TESTING BASE64 ENCODING FROM FILE (baseNencode -n 64 testfile64_raw)${NC}"
 result=$(cmp -l <(./baseNencode -n 64 testfile64_raw) <(base64 testfile64_raw))
-if ["$result" == ""]; then echo -e "${GREEN}Success${CHECKMARK}${NC}\n";
-else echo -e "${RED}Error: $result${NC}\n"; fi;
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 
 echo -e "${BLUE}TESTING BASE64 DECODING FROM FILE (baseNencode -d 64 encodedbase64)${NC}"
 result=$(cmp -l <(./baseNencode -d 64 encodedbase64) <(base64 -d encodedbase64))
-if ["$result" == ""]; then echo -e "${GREEN}Success${CHECKMARK}${NC}\n";
-else echo -e "${RED}Error: $result${NC}\n"; fi;
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 
 echo -e "${BLUE}TESTING BASE64 DECODING FROM FILE (baseNencode -d encodedbase64)${NC}"
 result=$(cmp -l <(./baseNencode -d encodedbase64) <(base64 -d encodedbase64))
-if ["$result" == ""]; then echo -e "${GREEN}Success${CHECKMARK}${NC}\n";
-else echo -e "${RED}Error: $result${NC}\n"; fi;
-
-
-##################################################
-#		BASE16 TESTS
-##################################################
-
-# make base16 test files 
-# head -c1000 /dev/random > testfile16_raw
-# (cat testfile16_raw | xxd -p -u) > encodedbase16
-
-echo -e "${BLUE}TESTING BASE16 ENCODING FROM FILE (baseNencode -n 16 testfile16_raw)${NC}"
-result=$(cmp -l <(./baseNencode -n 16 testfile16_raw) <(cat testfile16_raw | xxd -p -u))
-if ["$result" == ""]; then echo -e "${GREEN}Success${CHECKMARK}${NC}\n";
-else echo -e "${RED}Error: $result${NC}\n"; fi;
-
-echo -e "${BLUE}TESTING BASE16 DECODING FROM FILE (baseNencode -d 16 encodedbase16)${NC}"
-result=$(cmp -l <(./baseNencode -d 16 encodedbase16) <(cat testfile16_raw))
-if ["$result" == ""]; then echo -e "${GREEN}Success${CHECKMARK}${NC}\n";
-else echo -e "${RED}Error: $result${NC}\n"; fi;
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 
 ##################################################
 #		BASE32 TESTS
@@ -66,12 +47,30 @@ else echo -e "${RED}Error: $result${NC}\n"; fi;
 
 echo -e "${BLUE}TESTING BASE32 ENCODING FROM FILE (baseNencode -n 32 testfile32_raw)${NC}"
 result=$(cmp -l <(./baseNencode -n 32 testfile32_raw) <(base32 testfile32_raw))
-if ["$result" == ""]; then echo -e "${GREEN}Success${CHECKMARK}${NC}\n";
-else echo -e "${RED}Error: $result${NC}\n"; fi;
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 
 echo -e "${BLUE}TESTING BASE32 DECODING FROM FILE (baseNencode -d 32 encodedbase32)${NC}"
 result=$(cmp -l <(./baseNencode -d 32 encodedbase32) <(base32 -d encodedbase32))
-if ["$result" == ""]; then echo -e "${GREEN}Success${CHECKMARK}${NC}\n";
-else echo -e "${RED}Error: $result${NC}\n"; fi;
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
+
+##################################################
+#		BASE16 TESTS
+##################################################
+
+# make base16 test files 
+# head -c1000 /dev/random > testfile16_raw
+# (cat testfile16_raw | xxd -p -u) > encodedbase16
+
+echo -e "${BLUE}TESTING BASE16 ENCODING FROM FILE (baseNencode -n 16 testfile16_raw)${NC}"
+result=$(cmp -l <(./baseNencode -n 16 testfile16_raw) <(cat testfile16_raw | xxd -p -u))
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
+
+echo -e "${BLUE}TESTING BASE16 DECODING FROM FILE (baseNencode -d 16 encodedbase16)${NC}"
+result=$(cmp -l <(./baseNencode -d 16 encodedbase16) <(cat testfile16_raw))
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 
 

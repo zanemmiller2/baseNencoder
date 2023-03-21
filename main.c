@@ -1,9 +1,9 @@
 // --------- includes -------------
 #include "baseNencoder.h"
 
-void main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) {
   int fd = STDIN_FILENO;
-  char* option = "-e";
+  char* option = "-n";
   char* baseN = "64";
   char* file_name = "-";
 
@@ -21,32 +21,43 @@ void main(int argc, char* argv[]) {
   }
 
   /* ------------------------ Encode ------------------------ */
-  if (strcmp(baseN, "32") == 0) {
+    // default
+  if (strcmp(baseN, "64") == 0) {
+    // decode base64
     if (strcmp(option, "-d") == 0) {
+      decodeBase64(fd);
+    }
+    // encode base64
+    else {
+      encodeBase64(fd);
+    }
+    return 0;
+  }
+  else if (strcmp(baseN, "32") == 0) {
+    if (strcmp(option, "-d") == 0) {
+      // decode base32
       decodeBase32(fd);
     }
+    // encode base32
     else {
       encodeBase32(fd);
     }
   }
+  // base 16
   else if (strcmp(baseN, "16") == 0) {
+    // decode base16
     if (strcmp(option, "-d") == 0) {
       decodeBase16(fd);
     }
+    // encode base16
     else {
       encodeBase16(fd);
     }
   }
-  // default base64
   else {
-    if (strcmp(option, "-d") == 0) {
-      decodeBase64(fd);
-    }
-    else {
-      encodeBase64(fd);
-    }
-    // return 0;
+    printf("UNKNOWN ERROR...\n");
   }
+
 }
 
 

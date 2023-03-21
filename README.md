@@ -108,36 +108,50 @@ A test file is supplied for testing generated with:
 
 - #### to compare outputs with builtin function:
 
-  > defaults to base 64 with no flags:
+  > base64 encoding (defaults to base 64 encoding with no flags):
   >
   > ```bash
   > cmp -l <(./baseNencode testfile64_raw) <(base64 testfile64_raw)
   > ```
 
+  > base64 encoding
+  >
   > ```bash
   > cmp -l <(./baseNencode -n 64 testfile64_raw) <(base64 testfile64_raw)
   > ```
 
-  > ```bash
-  > cmp -l <(/.baseNencode -d 64 encodedtest64) <(base64 -d encodedtest64)
-  > ```
-
+  > base64 decoding (defaults to base 64 with no base after -d flag):
+  >
   > ```bash
   > cmp -l <(/.baseNencode -d encodedbase64) <(base64 -d encodedbase64)
   > ```
 
+  > base64 decoding
+  >
+  > ```bash
+  > cmp -l <(/.baseNencode -d 64 encodedbase64) <(base64 -d encodedbase64)
+  > ```
+
+  > base32 encoding
+  >
   > ```bash
   > cmp -l <(./baseNencode -n 32 testfile32_raw) <(base32 testfile32_raw)
   > ```
 
+  > base32 decoding
+  >
   > ```bash
   > cmp -l <(./baseNencode -d 32 encodedbase32) <(base32 encodedbase32)
   > ```
 
+  > base16 encoding
+  >
   > ```bash
   > cmp -l <(./baseNencode -n 16 testfile16_raw) <(cat testfile16_raw | xxd -p -u)
   > ```
 
+  > base16 decoding
+  >
   > ```bash
   > cmp -l <(./baseNencode -d 16 encodedbase16) <(cat testfile16_raw)
   > ```
@@ -146,7 +160,7 @@ A test file is supplied for testing generated with:
 
 ## NOTES:
 
-Planned expansion is to add decoding functionality for reamining base32. Also plan to include base32Hex encoding, encoding/decoding in other base systems and --wrap and --ignore-garbage flags.
+Planned expansion is to include base32Hex encoding, encoding/decoding in other base systems and --wrap and --ignore-garbage flags.
 
 <br/>
 
