@@ -1,18 +1,15 @@
 // --------- includes -------------
 #include "baseNencoder.h"
-// --------- defines ---------------
-#define INBUFFSIZE32 5
-#define OUTBUFFSIZE32 8
 
 
 /* encodeBase32: reads data from input_fd enodes it in base32, and stores it in inBuffer */
 void encodeBase32(int fd_in) {
   ssize_t nread, nwrite;
   int count = 0, i, j;
-  uint8_t inBuf[INBUFFSIZE32], outBuf[OUTBUFFSIZE32];
+  uint8_t inBuf[ENCODER_INBUFFSIZE_32], outBuf[ENCODER_OUTBUFFSIZE_32];
 
   /* -------------------------- Read -------------------------- */
-  while ((nread = read(fd_in, inBuf, INBUFFSIZE32)) != 0) {
+  while ((nread = read(fd_in, inBuf, ENCODER_INBUFFSIZE_32)) != 0) {
     if (nread < 0) {
       perror("error");  // invalid file descriptor
       exit(-1);
@@ -36,7 +33,7 @@ void encodeBase32(int fd_in) {
     // lower 5 bits of input byte 5
     outBuf[7] = alphabet32[inBuf[4] & 0x1F];
 
-    if (nread < INBUFFSIZE32) {
+    if (nread < ENCODER_INBUFFSIZE_32) {
       if (nread == 1) {
         i = 2;
       }
@@ -50,14 +47,15 @@ void encodeBase32(int fd_in) {
         i = 7;
       }
 
-      for (i; i < OUTBUFFSIZE32; i++) {
+      for (i; i < ENCODER_OUTBUFFSIZE_32; i++) {
         outBuf[i] = alphabet32[32];
       }
     }
 
     /* -------------------------- Write -------------------------- */
-    for (size_t offset = 0; offset < OUTBUFFSIZE32;) {
-      if ((nwrite = write(STDOUT_FILENO, offset + (char*)outBuf, OUTBUFFSIZE32 / 2)) < 0) {
+    for (size_t offset = 0; offset < ENCODER_OUTBUFFSIZE_32;) {
+      // read it out in 2 blocks of 4 to catch line feed at char 76
+      if ((nwrite = write(STDOUT_FILENO, offset + (char*)outBuf, ENCODER_OUTBUFFSIZE_32 / 2)) < 0) {
         perror("error");
         exit(-1);
       }
@@ -66,13 +64,13 @@ void encodeBase32(int fd_in) {
       count += nwrite;
 
       // write new line every 76 characters
-      if (count % MAXLINE == 0) {
+      if (count % MAXLINE76 == 0) {
         write(STDOUT_FILENO, "\n", sizeof(char));
       }
     }
 
-    memset(inBuf, 0, INBUFFSIZE32);             // sanitze input buffer
-    memset(outBuf, 0, OUTBUFFSIZE32);           // sanitze output buffer
+    memset(inBuf, 0, ENCODER_INBUFFSIZE_32);             // sanitze input buffer
+    memset(outBuf, 0, ENCODER_OUTBUFFSIZE_32);           // sanitze output buffer
   }
   write(STDOUT_FILENO, "\n", 1);
 }

@@ -8,8 +8,24 @@
 #include <string.h>     // strcmp
 #include <stdbool.h>    // bool
 // ------------ defines ------------
-#define MAXLINE 76
-#define MAXLINE16 60
+#define MAXLINE76 76
+#define MAXLINE60 60
+
+#define ENCODER_INBUFFSIZE_16 1
+#define ENCODER_OUTBUFFSIZE_16 2
+#define DECODE_INBUFFSIZE_16 3
+#define DECODE_OUTBUFFSIZE_16 2
+
+
+#define ENCODER_INBUFFSIZE_32 5
+#define ENCODER_OUTBUFFSIZE_32 8
+#define DECODER_INBUFFSIZE_32 8
+#define DECODER_OUTBUFFSIZE_32 5
+
+#define ENCODER_INBUFFSIZE_64 3
+#define ENCODER_OUTBUFFSIZE_64 4
+#define DECODE_INBUFFSIZE_64 4
+#define DECODE_OUTBUFFSIZE_64 3
 
 // Check that uint8_t type exists
 #ifndef UINT8_MAX

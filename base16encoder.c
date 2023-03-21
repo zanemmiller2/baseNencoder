@@ -1,8 +1,5 @@
 // --------- includes -------------
 #include "baseNencoder.h"
-// --------- defines ---------------
-#define ENCODER_INBUFFSIZE_16 1
-#define ENCODER_OUTBUFFSIZE_16 2
 
 /* encodeBase16: reads data from input_fd enodes it in base16 (hex), and stores it in inBuffer */
 void encodeBase16(int fd_in) {
@@ -35,7 +32,7 @@ void encodeBase16(int fd_in) {
       count += nwrite;
 
       // write new line every 60 characters
-      if (count % MAXLINE16 == 0) {
+      if (count % MAXLINE60 == 0) {
         write(STDOUT_FILENO, "\n", sizeof(char));
       }
     }

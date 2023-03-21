@@ -1,8 +1,5 @@
 // --------- includes -------------
 #include "baseNencoder.h"
-// --------- defines ---------------
-#define DECODE_INBUFFSIZE_64 4
-#define DECODE_OUTBUFFSIZE_64 3
 
 /* b64_isvalidchar:   checks for valid b64 characters. Returns true if valid, false otherwise */
 int b64_isvalidchar(char c)
@@ -81,7 +78,4 @@ void decodeBase64(int fd_in) {
       count = 0;
     }
   }
-
-
-
 }

@@ -1,10 +1,7 @@
 // --------- includes -------------
 #include "baseNencoder.h"
-// --------- defines ---------------
-#define DECODE_INBUFFSIZE_16 3
-#define DECODE_OUTBUFFSIZE_16 2
 
-/* b64_isvalidchar:   checks for valid b64 characters. Returns true if valid, false otherwise */
+/* b16_isvalidchar:   checks for valid HEX characters. Returns true if valid, false otherwise */
 int b16_isvalidchar(char c)
 {
   if (c >= '0' && c <= '9')
@@ -43,7 +40,7 @@ void decodeBase16(int fd_in) {
       // convert the ascii index to its corepsonding base64 index
       for (j = 0; j < count; j++) {
         if (!b16_isvalidchar(inBuf[j])) {
-          printf("error: Invalid base64 character");  // should already be taken care of when prepping the input buffer
+          printf("error: Invalid base16 character");  // should already be taken care of when prepping the input buffer
           exit(-1);
         }
         

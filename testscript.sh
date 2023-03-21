@@ -6,6 +6,9 @@ GREEN='\033[0;32m'
 BLUE='\033[0;36m'
 gcc main.c base16encoder.c base32encoder.c base64encoder.c base64decoder.c base16decoder.c  parsecl.c -o baseNencode
 
+################################################
+#		BASE64 TESTS
+################################################
 head -c1000 /dev/random > testfile64_raw
 base64 testfile64_raw > encodedbase64
 echo -e "${BLUE}Testing base64 encoding from file with no flags${NC}"
@@ -29,6 +32,9 @@ if ["$result" == ""]; then echo -e "${GREEN}Success${NC}";
 else echo -e "${RED}Error: $result${NC}"; fi;
 
 
+##################################################
+#		BASE16 TESTS
+##################################################
 head -c1000 /dev/random > testfile16_raw
 (cat testfile16_raw | xxd -p -u) > encodedbase16
 
@@ -42,6 +48,9 @@ result=$(cmp -l <(./baseNencode -d 16 encodedbase16) <(cat testfile16_raw))
 if ["$result" == ""]; then echo -e "${GREEN}Success${NC}";
 else echo -e "${RED}Error: $result${NC}"; fi;
 
+##################################################
+#		BASE32 TESTS
+##################################################
 head -c1000 /dev/random > testfile32_raw
 
 echo -e "${BLUE}Testing base32 encoding from file with -n 32 flag${NC}"
