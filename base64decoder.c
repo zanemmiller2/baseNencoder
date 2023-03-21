@@ -1,5 +1,8 @@
 // --------- includes -------------
 #include "baseNencoder.h"
+// ------------ defines ------------
+#define DECODER_INBUFFSIZE_64 4
+#define DECODER_OUTBUFFSIZE_64 3
 
 /* b64_isvalidchar:   checks for valid b64 characters. Returns true if valid, false otherwise */
 int b64_isvalidchar(char c)
@@ -20,7 +23,7 @@ int b64_isvalidchar(char c)
 void decodeBase64(int fd_in) {
   size_t nread, nwrite;
   int i, j, count;
-  uint8_t inBuf[DECODE_INBUFFSIZE_64], outBuf[DECODE_OUTBUFFSIZE_64], indexes[DECODE_INBUFFSIZE_64], buffchar[1];
+  uint8_t inBuf[DECODER_INBUFFSIZE_64], outBuf[DECODER_OUTBUFFSIZE_64], indexes[DECODER_INBUFFSIZE_64], buffchar[1];
   count = 0;
 
   // read in 1 byte at a time -- checking for only valid b64 characters
@@ -37,7 +40,7 @@ void decodeBase64(int fd_in) {
     }
 
     // have a full (4 byte) input buffer 
-    if (count == DECODE_INBUFFSIZE_64) {
+    if (count == DECODER_INBUFFSIZE_64) {
 
       // conver the ascii index to its corepsonding base64 index
       for (j = 0; j < count; j++) {
@@ -63,18 +66,12 @@ void decodeBase64(int fd_in) {
       // bits 5 - 6 of input byte 3 top 6 bits of input byte 4
       outBuf[2] = (((indexes[2] << 4) & 0xC0) | (indexes[3] >> 2));
 
-      if(inBuf[DECODE_INBUFFSIZE_64 - 1] == '='){
+      if(inBuf[DECODER_INBUFFSIZE_64 - 1] == '='){
         count -= 2;
         }
 
       /* -------------------------- Write -------------------------- */
-      for (size_t offset = 0; offset < count * 3 / 4;) {
-        if ((nwrite = write(STDOUT_FILENO, offset + (char*)outBuf, count * 3 / 4)) < 0) {
-          perror("error");
-          exit(-1);
-        }
-        offset += nwrite;
-      }
+      writedecoded(STDOUT_FILENO, outBuf, count * 3 / 4);
       count = 0;
     }
   }

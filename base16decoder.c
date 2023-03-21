@@ -1,5 +1,8 @@
 // --------- includes -------------
 #include "baseNencoder.h"
+// ------------ defines ------------
+#define DECODER_INBUFFSIZE_16 3
+#define DECODER_OUTBUFFSIZE_16 2
 
 /* b16_isvalidchar:   checks for valid HEX characters. Returns true if valid, false otherwise */
 int b16_isvalidchar(char c)
@@ -18,7 +21,7 @@ int b16_isvalidchar(char c)
 void decodeBase16(int fd_in) {
   size_t nread, nwrite;
   int i, j, count;
-  uint8_t inBuf[DECODE_INBUFFSIZE_16], outBuf[DECODE_OUTBUFFSIZE_16], indexes[DECODE_INBUFFSIZE_16], buffchar[2];
+  uint8_t inBuf[DECODER_INBUFFSIZE_16], outBuf[DECODER_OUTBUFFSIZE_16], indexes[DECODER_INBUFFSIZE_16], buffchar[2];
   count = 0;
 
   // read in 1 byte at a time -- checking for only valid b64 characters
@@ -35,7 +38,7 @@ void decodeBase16(int fd_in) {
     }
 
     // have a full (4 byte) input buffer 
-    if (count == DECODE_INBUFFSIZE_16 - 1) {
+    if (count == DECODER_INBUFFSIZE_16 - 1) {
 
       // convert the ascii index to its corepsonding base64 index
       for (j = 0; j < count; j++) {
@@ -56,13 +59,7 @@ void decodeBase16(int fd_in) {
       outBuf[0] = ((indexes[0] << 4) | indexes[1]);
 
       /* -------------------------- Write -------------------------- */
-      for (size_t offset = 0; offset < count * 1 / 2;) {
-        if ((nwrite = write(STDOUT_FILENO, offset + (char*)outBuf, count * 1 / 2)) < 0) {
-          perror("error");
-          exit(-1);
-        }
-        offset += nwrite;
-      }
+      writedecoded(STDOUT_FILENO, outBuf, count / 2);
       count = 0;
     }
   }

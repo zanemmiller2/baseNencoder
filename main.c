@@ -22,7 +22,12 @@ void main(int argc, char* argv[]) {
 
   /* ------------------------ Encode ------------------------ */
   if (strcmp(baseN, "32") == 0) {
-    encodeBase32(fd);
+    if (strcmp(option, "-d") == 0) {
+      decodeBase32(fd);
+    }
+    else {
+      encodeBase32(fd);
+    }
   }
   else if (strcmp(baseN, "16") == 0) {
     if (strcmp(option, "-d") == 0) {

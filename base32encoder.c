@@ -1,5 +1,8 @@
 // --------- includes -------------
 #include "baseNencoder.h"
+// ------------ defines ------------
+#define ENCODER_INBUFFSIZE_32 5
+#define ENCODER_OUTBUFFSIZE_32 8
 
 
 /* encodeBase32: reads data from input_fd enodes it in base32, and stores it in inBuffer */
@@ -15,7 +18,7 @@ void encodeBase32(int fd_in) {
       exit(-1);
     }
 
-    /* -------------------- Encode algorithm2    -------------------- */
+    /* -------------------- Encode algorithm -------------------- */
     // upper 5 bits of input byte 1 (drop lower 3 bits)
     outBuf[0] = alphabet32[inBuf[0] >> 3];
     // lower 3 bits of input byte 1 and upper 2 bits of byte 2

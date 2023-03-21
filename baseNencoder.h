@@ -11,21 +11,6 @@
 #define MAXLINE76 76
 #define MAXLINE60 60
 
-#define ENCODER_INBUFFSIZE_16 1
-#define ENCODER_OUTBUFFSIZE_16 2
-#define DECODE_INBUFFSIZE_16 3
-#define DECODE_OUTBUFFSIZE_16 2
-
-
-#define ENCODER_INBUFFSIZE_32 5
-#define ENCODER_OUTBUFFSIZE_32 8
-#define DECODER_INBUFFSIZE_32 8
-#define DECODER_OUTBUFFSIZE_32 5
-
-#define ENCODER_INBUFFSIZE_64 3
-#define ENCODER_OUTBUFFSIZE_64 4
-#define DECODE_INBUFFSIZE_64 4
-#define DECODE_OUTBUFFSIZE_64 3
 
 // Check that uint8_t type exists
 #ifndef UINT8_MAX
@@ -42,5 +27,7 @@ void encodeBase64(int fd);
 void encodeBase32(int fd);
 void encodeBase16(int fd);
 void decodeBase64(int fd);
+void decodeBase32(int fd);
 void decodeBase16(int fd);
 void parsecl(int argc, char* argv[], char** option, char** baseN, char** file_name);
+void writedecoded(int fd_out, char* output, int outputBytes);

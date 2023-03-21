@@ -1,5 +1,8 @@
 // --------- includes -------------
 #include "baseNencoder.h"
+// ------------ defines ------------
+#define ENCODER_INBUFFSIZE_64 3
+#define ENCODER_OUTBUFFSIZE_64 4
 
 /* encodeBase64: reads data from input_fd enodes it in base64, and stores it in inBuffer */
 void encodeBase64(int fd_in) {
