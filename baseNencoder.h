@@ -9,6 +9,7 @@
 #include <stdbool.h>    // bool
 // ------------ defines ------------
 #define MAXLINE 76
+#define MAXLINE16 60
 
 // Check that uint8_t type exists
 #ifndef UINT8_MAX
@@ -25,4 +26,5 @@ void encodeBase64(int fd);
 void encodeBase32(int fd);
 void encodeBase16(int fd);
 void decodeBase64(int fd);
+void decodeBase16(int fd);
 void parsecl(int argc, char* argv[], char** option, char** baseN, char** file_name);

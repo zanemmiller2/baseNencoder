@@ -43,60 +43,105 @@ A test file is supplied for testing generated with:
 
 - #### to run sample test file:
 
-> ```bash
-> ./baseNencode testfile
-> ```
->
-> ```bash
-> ./baseNencode -n 16 testfile
-> ```
->
-> ```bash
-> ./baseNencode -n 32 testfile
-> ```
->
-> ```bash
-> ./baseNencode -n 64 testfile
-> ```
+  > defaults to base64 with no flags:
+  >
+  > ```bash
+  > ./baseNencode testfile
+  > ```
 
-- #### to encode from stdandard input:
+  > ```bash
+  > ./baseNencode -n 16 testfile
+  > ```
 
-> ```bash
-> ./baseNencode
-> ```
->
-> ```bash
-> ./baseNencode -n 16
-> ```
->
-> ```bash
-> ./baseNencode -n 32
-> ```
->
-> ```bash
-> ./baseNencode -n 64
-> ```
+  > ```bash
+  > ./baseNencode -n 32 testfile
+  > ```
 
-- #### to compare outputs with base64 and base32 builtin function:
+  > ```bash
+  > ./baseNencode -n 64 testfile
+  > ```
 
-> ```bash
-> cmp -l <(./baseNencode -n 64 < testfile) <(base64 testfile)
-> ```
->
-> ```bash
-> cmp -l <(./baseNencode < testfile) <(base64 testfile)
-> ```
->
-> ```bash
-> cmp -l <(./baseNencode -n 32 < testfile) <(base32 testfile)
->
-> ```
+- #### to ENCODE from stdandard input:
+
+  > defaults to base64 with no flags:
+  >
+  > ```bash
+  > ./baseNencode
+  > ```
+
+  > ```bash
+  > ./baseNencode -n 16
+  > ```
+
+  > ```bash
+  > ./baseNencode -n 32
+  > ```
+
+  > ```bash
+  > ./baseNencode -n 64
+  > ```
+
+- #### to DECODE from stdandard input:
+
+  > defaults to base 64 with no flags
+  >
+  > ```bash
+  > ./baseNencode -d
+  > ```
+
+  > ```bash
+  > ./baseNencode -d 16
+  > ```
+
+  > ```bash
+  > ./baseNencode -d 32
+  > ```
+
+  > ```bash
+  > ./baseNencode -d 64
+  > ```
+
+- #### to compare outputs with builtin function:
+
+  > defaults to base 64 with no flags:
+  >
+  > ```bash
+  > cmp -l <(./baseNencode testfile64_raw) <(base64 testfile64_raw)
+  > ```
+
+  > ```bash
+  > cmp -l <(./baseNencode -n 64 testfile64_raw) <(base64 testfile64_raw)
+  > ```
+
+  > ```bash
+  > cmp -l <(/.baseNencode -d 64 encodedtest64) <(base64 -d encodedtest64)
+  > ```
+
+  > ```bash
+  > cmp -l <(/.baseNencode -d encodedbase64) <(base64 -d encodedbase64)
+  > ```
+
+  > ```bash
+  > cmp -l <(./baseNencode -n 32 testfile32_raw) <(base32 testfile32_raw)
+  > ```
+
+  > ```bash
+  > cmp -l <(./baseNencode -d 32 encodedbase32) <(base32 encodedbase32)
+  > ```
+
+  > ```bash
+  > cmp -l <(./baseNencode -n 16 testfile16_raw) <(cat testfile16_raw | xxd -p -u)
+  > ```
+
+  > ```bash
+  > cmp -l <(./baseNencode -d 16 encodedbase16) <(cat testfile16_raw)
+  > ```
 
 <br/>
 
 ## NOTES:
 
-Planned expansion is to add decoding functionality for all three bases (16, 32, 64). Also plan to include base32Hex encoding and --wrap and --ignore-garbage flags.
+Planned expansion is to add decoding functionality for reamining base32. Also plan to include base32Hex encoding, encoding/decoding in other base systems and --wrap and --ignore-garbage flags.
 
 <br/>
 

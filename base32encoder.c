@@ -74,5 +74,5 @@ void encodeBase32(int fd_in) {
     memset(inBuf, 0, INBUFFSIZE32);             // sanitze input buffer
     memset(outBuf, 0, OUTBUFFSIZE32);           // sanitze output buffer
   }
-  write(STDOUT_FILENO, "\n", sizeof(char));   // write new line at end
+  write(STDOUT_FILENO, "\n", 1);
 }

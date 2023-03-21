@@ -3,7 +3,7 @@
 
 void main(int argc, char* argv[]) {
   int fd = STDIN_FILENO;
-  char* option;
+  char* option = "-e";
   char* baseN = "64";
   char* file_name = "-";
 
@@ -24,18 +24,26 @@ void main(int argc, char* argv[]) {
   if (strcmp(baseN, "32") == 0) {
     encodeBase32(fd);
   }
-  if (strcmp(baseN, "16") == 0) {
-    encodeBase16(fd);
+  else if (strcmp(baseN, "16") == 0) {
+    if (strcmp(option, "-d") == 0) {
+      decodeBase16(fd);
+    }
+    else {
+      encodeBase16(fd);
+    }
   }
   // default base64
   else {
-    encodeBase64(fd);
-    // decodeBase64(fd);
-    
+    if (strcmp(option, "-d") == 0) {
+      decodeBase64(fd);
+    }
+    else {
+      encodeBase64(fd);
+    }
+    // return 0;
+  }
+}
 
-  // return 0;
-}
-}
 
 
 

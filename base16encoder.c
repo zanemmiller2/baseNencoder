@@ -1,17 +1,17 @@
 // --------- includes -------------
 #include "baseNencoder.h"
 // --------- defines ---------------
-#define INBUFFSIZE16 1
-#define OUTBUFFSIZE16 2
+#define ENCODER_INBUFFSIZE_16 1
+#define ENCODER_OUTBUFFSIZE_16 2
 
 /* encodeBase16: reads data from input_fd enodes it in base16 (hex), and stores it in inBuffer */
 void encodeBase16(int fd_in) {
   ssize_t nread, nwrite;
   int count = 0, i, j;
-  uint8_t inBuf[INBUFFSIZE16], outBuf[OUTBUFFSIZE16];
+  uint8_t inBuf[ENCODER_INBUFFSIZE_16], outBuf[ENCODER_OUTBUFFSIZE_16];
 
   /* -------------------------- Read -------------------------- */
-  while ((nread = read(fd_in, inBuf, INBUFFSIZE16)) != 0) {
+  while ((nread = read(fd_in, inBuf, ENCODER_INBUFFSIZE_16)) != 0) {
     if (nread < 0) {
       perror("error");  // invalid file descriptor
       exit(-1);
@@ -25,8 +25,8 @@ void encodeBase16(int fd_in) {
 
 
     /* -------------------------- Write -------------------------- */
-    for (size_t offset = 0; offset < OUTBUFFSIZE16;) {
-      if ((nwrite = write(STDOUT_FILENO, offset + (char*)outBuf, OUTBUFFSIZE16 - offset)) < 0) {
+    for (size_t offset = 0; offset < ENCODER_OUTBUFFSIZE_16;) {
+      if ((nwrite = write(STDOUT_FILENO, offset + (char*)outBuf, ENCODER_OUTBUFFSIZE_16 - offset)) < 0) {
         perror("error");
         exit(-1);
       }
@@ -34,14 +34,14 @@ void encodeBase16(int fd_in) {
       offset += nwrite;
       count += nwrite;
 
-      // write new line every 76 characters
-      if (count % MAXLINE == 0) {
+      // write new line every 60 characters
+      if (count % MAXLINE16 == 0) {
         write(STDOUT_FILENO, "\n", sizeof(char));
       }
     }
 
-    memset(inBuf, 0, INBUFFSIZE16);             // sanitze input buffer
-    memset(outBuf, 0, OUTBUFFSIZE16);           // sanitze output buffer
+    memset(inBuf, 0, ENCODER_INBUFFSIZE_16);             // sanitze input buffer
+    memset(outBuf, 0, ENCODER_OUTBUFFSIZE_16);           // sanitze output buffer
   }
   write(STDOUT_FILENO, "\n", sizeof(char));   // write new line at end
 }
