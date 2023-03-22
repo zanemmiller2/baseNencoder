@@ -19,7 +19,7 @@
 
 // ------------ globals -------------
 static char const alphabet64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-static char const alphabet58[] = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+static char const alphabet58[] = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz=";
 static char const alphabet32[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=";
 static char const alphabet16[] = "0123456789ABCDEF=";
 
