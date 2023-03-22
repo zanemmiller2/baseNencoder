@@ -18,12 +18,14 @@
 #endif
 
 // ------------ globals -------------
+static char const alphabetz85[] = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-:+=^!/*?&<>()[]{}@%$#";
 static char const alphabet64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 static char const alphabet58[] = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz=";
 static char const alphabet32[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=";
 static char const alphabet16[] = "0123456789ABCDEF=";
 
 // ----- function declarations ------
+void encodeBasez85(int fd);
 void encodeBase64(int fd);
 void decodeBase64(int fd);
 void encodeBase58(int fd);

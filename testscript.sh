@@ -7,7 +7,25 @@ BLUE='\033[0;36m'
 CHECKMARK='\t\xE2\x9C\x94'
 
 echo -e "${BLUE}COMPILING SOURCE CODE............${NC}"
-gcc main.c base16encoder.c base16decoder.c base32encoder.c base32decoder.c base58encoder.c base58decoder.c base64encoder.c base64decoder.c parsecl.c writedecoded.c -o baseNencode
+gcc main.c base16encoder.c base16decoder.c base32encoder.c base32decoder.c base58encoder.c base58decoder.c base64encoder.c base64decoder.c basez85encoder.c parsecl.c writedecoded.c -o baseNencode
+
+##################################################
+#		BASEz85 TESTS
+##################################################
+
+# make basez85 testfiles
+# head -c1000 /dev/random > testfileZ85_raw
+
+echo -e "${BLUE}TESTING BASEZ85 ENCODING FROM FILE (baseNencode -n z85 testfileZ85_raw)${NC}"
+result=$(cmp -l <(./baseNencode -n z85 testfileZ85_raw) <(cat encodedbaseZ85))
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
+
+echo -e "${BLUE}TESTING BASEZ85 ENCODING FROM FILE (baseNencode -n Z85 testfileZ85_raw)${NC}"
+result=$(cmp -l <(./baseNencode -n Z85 testfileZ85_raw) <(cat encodedbaseZ85))
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
+
 
 ################################################
 #		BASE64 TESTS
@@ -41,9 +59,8 @@ else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 #		BASE58 TESTS
 ##################################################
 
-# make base32 testfiles
+# make base58 testfiles
 # head -c1000 /dev/random > testfile58_raw
-# base32 testfile58_raw > encodedbase58
 
 echo -e "${BLUE}TESTING BASE58 ENCODING FROM FILE (baseNencode -n 58 testfile58_raw)${NC}"
 result=$(cmp -l <(./baseNencode -n 58 testfile58_raw) <(cat encodedbase58))

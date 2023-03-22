@@ -22,8 +22,20 @@ int main(int argc, char* argv[]) {
 
   /* ------------------------ Encode/Decode ------------------------ */
 
+  /* ------ BASEZ85 ------ */
+  if (strcmp(baseN, "z85") == 0 || strcmp(baseN, "Z85") == 0) {
+    // decode base64
+    if (strcmp(option, "-d") == 0) {
+      printf("DECODE Z85 NOT IMPLEMENTED YET\n");
+      exit(0);
+    }
+    // encode base64
+    else {
+      encodeBasez85(fd);
+    }
+  }
   /* ------ BASE64 ------ */
-  if (strcmp(baseN, "64") == 0) {
+  else if (strcmp(baseN, "64") == 0) {
     // decode base64
     if (strcmp(option, "-d") == 0) {
       decodeBase64(fd);

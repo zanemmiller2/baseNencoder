@@ -9,7 +9,7 @@ _base64encode [OPTION] [FILE]_
 <ul>
 -n [BASE] encodes in given base number.
 
-<ul>Defaults to base64 encoding if -n flag not supplied. Base must be 16, 32, 58, or 64.</ul><br>
+<ul>Defaults to base64 encoding if -n flag not supplied. Base must be 16, 32, 58, 64, z85, or Z85.</ul><br>
 
 -d [BASE] decodes in given base number.
 
@@ -41,6 +41,8 @@ Takes at most 1 file path (or reads from standard input if no file path or file 
 
 <ins>base64 decoding</ins> is completed by taking a block of four base64 characters and converting it to three ASCII characters.
 
+<ins>basez85 encoding</ins> is completed by taking a block of four octets (32 bit DOUBLE WORD) and converting it to five z85 characters. Input lengths less than 4 bytes are padded with "00" for conversion and then disregarded in the output.
+
 Prints to standard output wrapping to a new line every 76 characters. Pads incomplete output strings with "=".
 
 **(Note: this base58 implementation is going to vary slightly from other versions due to the max unsigned integer limitations)**
@@ -50,7 +52,7 @@ Prints to standard output wrapping to a new line every 76 characters. Pads incom
 ## COMPILE:
 
 > ```bash
-> gcc main.c base16encoder.c base16decoder.c base32encoder.c base32decoder.c base58encoder.c base64encoder.c base64decoder.c parsecl.c writedecoded.c -o baseNencode
+> gcc main.c base16encoder.c base16decoder.c base32encoder.c base32decoder.c base58encoder.c base58decoder.c base64encoder.c base64decoder.c basez85encoder.c parsecl.c writedecoded.c -o baseNencode
 > ```
 
 <br/>
@@ -87,7 +89,15 @@ A test file is supplied for testing generated with:
   > ./baseNencode -n 64 testfile
   > ```
 
-- #### to ENCODE from stdandard input (base16, base32, base58, base64):
+  > ```bash
+  > ./baseNencode -n z85 testfile
+  > ```
+
+  > ```bash
+  > ./baseNencode -n Z85 testfile
+  > ```
+
+- #### to ENCODE from stdandard input (base16, base32, base58, base64, basez85):
 
   > defaults to base64 with no flags:
   >
@@ -111,7 +121,15 @@ A test file is supplied for testing generated with:
   > ./baseNencode -n 64
   > ```
 
-- #### to DECODE from stdandard input (base16, base32, base64):
+  > ```bash
+  > ./baseNencode -n z85
+  > ```
+
+  > ```bash
+  > ./baseNencode -n Z85
+  > ```
+
+- #### to DECODE from stdandard input (base16, base32, base58, base64):
 
   > defaults to base 64 with no flags
   >
@@ -136,6 +154,18 @@ A test file is supplied for testing generated with:
   > ```
 
 - #### to compare outputs with builtin function:
+
+  > base -z85 encoding
+  >
+  > ```bash
+  > cmp -l <(./baseNencode -n z85 testfileZ85_raw) <(cat encodedbaseZ85)
+  > ```
+
+  > base -Z85 encoding (same as z85 just case insensitive)
+  >
+  > ```bash
+  > cmp -l <(./baseNencode -n Z85 testfileZ85_raw) <(cat encodedbaseZ85)
+  > ```
 
   > base64 encoding (defaults to base 64 encoding with no flags):
   >
