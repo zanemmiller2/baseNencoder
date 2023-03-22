@@ -9,11 +9,11 @@ _base64encode [OPTION] [FILE]_
 <ul>
 -n [BASE] encodes in given base number.
 
-<ul>Defaults to base64 encoding if -n flag not supplied. Base must be 16, 32, 58, 64, z85, or Z85.</ul><br>
+<ul>Defaults to base64 encoding if -n flag not supplied. Base must be 16, 32, 58, 64, z85 (Z85).</ul><br>
 
 -d [BASE] decodes in given base number.
 
-<ul>Defaults to base64 decoding if -d flag not supplied. or -d flag supplied with no [BASE]. Base must be 16, 32, 58 or 64.</ul><br>
+<ul>Defaults to base64 decoding if -d flag not supplied. or -d flag supplied with no [BASE]. Base must be 16, 32, 58, 64, z85 (Z85).</ul><br>
 
 </ul>
 
@@ -43,6 +43,8 @@ Takes at most 1 file path (or reads from standard input if no file path or file 
 
 <ins>basez85 encoding</ins> is completed by taking a block of four octets (32 bit DOUBLE WORD) and converting it to five z85 characters. Input lengths less than 4 bytes are padded with "00" for conversion and then disregarded in the output.
 
+<ins>basez85 decoding</ins> is completed by reading a block of five z85 characters and converting it to four ASCII characters. New line characters in the input are disregarded in decoding.
+
 Prints to standard output wrapping to a new line every 76 characters. Pads incomplete output strings with "=".
 
 **(Note: this base58 implementation is going to vary slightly from other versions due to the max unsigned integer limitations)**
@@ -52,7 +54,7 @@ Prints to standard output wrapping to a new line every 76 characters. Pads incom
 ## COMPILE:
 
 > ```bash
-> gcc main.c base16encoder.c base16decoder.c base32encoder.c base32decoder.c base58encoder.c base58decoder.c base64encoder.c base64decoder.c basez85encoder.c parsecl.c writedecoded.c -o baseNencode
+> gcc main.c base16encoder.c base16decoder.c base32encoder.c base32decoder.c base58encoder.c base58decoder.c base64encoder.c base64decoder.c basez85encoder.c basez85decoder.c parsecl.c writedecoded.c -o baseNencode
 > ```
 
 <br/>
@@ -153,7 +155,27 @@ A test file is supplied for testing generated with:
   > ./baseNencode -d 64
   > ```
 
+  > ```bash
+  > ./baseNencode -d z85
+  > ```
+
+  > ```bash
+  > ./baseNencode -d Z85
+  > ```
+
 - #### to compare outputs with builtin function:
+
+  > base -z85 decoding
+  >
+  > ```bash
+  > cmp -l <(./baseNencode -d z85 encodedbaseZ85) <(cat testfileZ85_raw)
+  > ```
+
+  > base -Z85 decoding (same as z85 just case insensitive)
+  >
+  > ```bash
+  > cmp -l <(./baseNencode -d Z85 encodedbaseZ85) <(cat testfileZ85_raw)
+  > ```
 
   > base -z85 encoding
   >
@@ -194,7 +216,7 @@ A test file is supplied for testing generated with:
   > base32 encoding
   >
   > ```bash
-  > cmp -l <(./baseNencode -n 32 testfile32_raw) <(base32 testfile32_raw)
+  > cmp -l <(./baseNencencodedbaseZ85ode -n 32 testfile32_raw) <(base32 testfile32_raw)
   > ```
 
   > base32 decoding

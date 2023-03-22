@@ -26,6 +26,7 @@ static char const alphabet16[] = "0123456789ABCDEF=";
 
 // ----- function declarations ------
 void encodeBasez85(int fd);
+void decodeBasez85(int fd);
 void encodeBase64(int fd);
 void decodeBase64(int fd);
 void encodeBase58(int fd);

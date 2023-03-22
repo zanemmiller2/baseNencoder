@@ -7,10 +7,10 @@ BLUE='\033[0;36m'
 CHECKMARK='\t\xE2\x9C\x94'
 
 echo -e "${BLUE}COMPILING SOURCE CODE............${NC}"
-gcc ../main.c ../base16encoder.c ../base16decoder.c ../base32encoder.c ../base32decoder.c ../base58encoder.c ../base58decoder.c ../base64encoder.c ../base64decoder.c ../basez85encoder.c ../parsecl.c ../writedecoded.c -o baseNencodetest
+gcc ../main.c ../base16encoder.c ../base16decoder.c ../base32encoder.c ../base32decoder.c ../base58encoder.c ../base58decoder.c ../base64encoder.c ../base64decoder.c ../basez85encoder.c ../basez85decoder.c ../parsecl.c ../writedecoded.c -o baseNencodetest
 
 
-gcc ../main.c ../base16encoder.c ../base16decoder.c ../base32encoder.c ../base32decoder.c ../base58encoder.c ../base58decoder.c ../base64encoder.c ../base64decoder.c ../basez85encoder.c ../parsecl.c ../writedecoded.c -o ../baseNencode
+gcc ../main.c ../base16encoder.c ../base16decoder.c ../base32encoder.c ../base32decoder.c ../base58encoder.c ../base58decoder.c ../base64encoder.c ../base64decoder.c ../basez85encoder.c ../basez85decoder.c ../parsecl.c ../writedecoded.c -o ../baseNencode
 
 ##################################################
 #		BASEz85 TESTS
@@ -26,6 +26,16 @@ else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 
 echo -e "${BLUE}TESTING BASEZ85 ENCODING FROM FILE (baseNencode -n Z85 testfileZ85_raw)${NC}"
 result=$(cmp -l <(./baseNencodetest -n Z85 testfileZ85_raw) <(cat encodedbaseZ85))
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
+
+echo -e "${BLUE}TESTING BASEZ85 DECODING FROM FILE (baseNencode -d Z85 encodedbaseZ85)${NC}"
+result=$(cmp -l <(./baseNencodetest -d Z85 encodedbaseZ85) <(cat testfileZ85_raw))
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
+
+echo -e "${BLUE}TESTING BASEZ85 DECODING FROM FILE (baseNencode -d z85 encodedbaseZ85)${NC}"
+result=$(cmp -l <(./baseNencodetest -d z85 encodedbaseZ85) <(cat testfileZ85_raw))
 if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
 else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 
