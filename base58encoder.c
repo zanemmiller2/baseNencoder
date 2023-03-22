@@ -108,21 +108,12 @@ void encodeBase58(int fd_in) {
         exit(-1);
       }
     }
-    // separate groups of eleven base58 chars with two spaces unless it is the last group
-    else{
-      if (nread == ENCODER_INBUFFSIZE_58 - 1 && (nwritepad = write(STDOUT_FILENO, "  ", sizeof(char) * 2)) < 0){
-        perror("error");
-        exit(-1);
-      }
-      totalCount += 2;
-    }
 
     // Sanitze Arrays
     memset(inBuf, 0, ENCODER_INBUFFSIZE_58);
     memset(outBuf, 0, ENCODER_OUTBUFFSIZE_58);
     memset(hexstring, 0, (nread * 2) + 1);
   }
-  write(STDOUT_FILENO, "\n", sizeof(char));   // write new line at end
 }
 
 

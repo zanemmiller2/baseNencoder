@@ -13,7 +13,7 @@ _base64encode [OPTION] [FILE]_
 
 -d [BASE] decodes in given base number.
 
-<ul>Defaults to base64 decoding if -d flag not supplied. or -d flag supplied with no [BASE]. Base must be 16, 32, or 64.</ul><br>
+<ul>Defaults to base64 decoding if -d flag not supplied. or -d flag supplied with no [BASE]. Base must be 16, 32, 58 or 64.</ul><br>
 
 </ul>
 
@@ -35,11 +35,15 @@ Takes at most 1 file path (or reads from standard input if no file path or file 
 
 <ins>base58 encoding</ins> is completed by reading in data in blocks of eight bytes and converting it to eleven base58 characters. The program converts eight bytes of input at a time do to the size limitations of unsigned long long integers in C.
 
+<ins>base58 decoding</ins> is completed by reading in data in blocks of up to eleven encoded bytes at a time and converting it to up to eight ascii characters. The program converts eleven bytes of input at a time do to the size limitations of unsigned long long integers in C.
+
 <ins>base64 encoding</ins> is completed by taking a block of three octets (24 bit string) and converting it to four BASE64 characters.
 
 <ins>base64 decoding</ins> is completed by taking a block of four base64 characters and converting it to three ASCII characters.
 
 Prints to standard output wrapping to a new line every 76 characters. Pads incomplete output strings with "=".
+
+**(Note: this base58 implementation is going to vary slightly from other versions due to the max unsigned integer limitations)**
 
 <br/>
 
@@ -121,6 +125,10 @@ A test file is supplied for testing generated with:
 
   > ```bash
   > ./baseNencode -d 32
+  > ```
+
+  > ```bash
+  > ./baseNencode -d 58
   > ```
 
   > ```bash

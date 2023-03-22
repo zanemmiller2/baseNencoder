@@ -17,7 +17,7 @@ int b16_isvalidchar(char c)
 }
 
 
-/* decodeBase64:  decodes data in base64 format to ascii */
+/* decodeBase16:  decodes data in base16 format to ascii */
 void decodeBase16(int fd_in) {
   size_t nread, nwrite;
   int i, j, count;

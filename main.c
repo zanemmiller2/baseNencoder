@@ -38,8 +38,7 @@ int main(int argc, char* argv[]) {
   else if (strcmp(baseN, "58") == 0) {
     // decode base58
     if (strcmp(option, "-d") == 0) {
-      printf("BASE58 DECODING NOT IMPLEMENTED YET\n");
-      exit(-1);
+      decodeBase58(fd);
     }
     // encode base58
     else {

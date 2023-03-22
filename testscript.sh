@@ -7,7 +7,7 @@ BLUE='\033[0;36m'
 CHECKMARK='\t\xE2\x9C\x94'
 
 echo -e "${BLUE}COMPILING SOURCE CODE............${NC}"
-gcc main.c base16encoder.c base16decoder.c base32encoder.c base32decoder.c base58encoder.c base64encoder.c base64decoder.c parsecl.c writedecoded.c -o baseNencode
+gcc main.c base16encoder.c base16decoder.c base32encoder.c base32decoder.c base58encoder.c base58decoder.c base64encoder.c base64decoder.c parsecl.c writedecoded.c -o baseNencode
 
 ################################################
 #		BASE64 TESTS
