@@ -33,7 +33,7 @@ Takes at most 1 file path (or reads from standard input if no file path or file 
 
 <ins>base32 decoding</ins> is completed by taking a block of eight BASE32 characters (64 bit string) and converting it to five ASCII characters.
 
-<ins>base58 encoding</ins> is completed by reading in data in blocks of eight bytes and converting it to eleven base58 characters. The program converts eight bytes of input at a time do to the size limitations of unsigned long long integers in C.
+<ins>base58 encoding</ins> is completed by reading in a complete stream of data -> converting it to a hexstring representing each byte of the input -> converting the hex string to an array of integers representing the digits of the integer value of the concatenated hexstring -> converting the arbitrarily large "integer" to its b58 representation. The program is limited to encoding at most 256 bytes.
 
 <ins>base58 decoding</ins> is completed by reading in data in blocks of up to eleven encoded bytes at a time and converting it to up to eight ascii characters. The program converts eleven bytes of input at a time do to the size limitations of unsigned long long integers in C.
 
