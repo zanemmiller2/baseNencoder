@@ -4,7 +4,6 @@
 // ------------ defines ------------
 #define ENCODER_INBUFFSIZE_58 257   // 256 + '\0'
 #define ENCODER_OUTBUFFSIZE_58 355  // 256 * 1.38 + '\0'
-#define MAXBIGINTLEN 309            // 308 + '0'
 
 /* convert_hex_to_string_int:
       takes an hexstring and converts its integer
@@ -143,14 +142,14 @@ int divide_bigint(uint8_t bigint[], int divisor, int bigint_len) {
       reads data from input_fd and encodes it in base58
 */
 void encodeBase58(int fd_in) {
-  size_t nread, nwrite, nwritepad;
+  size_t nread, nwrite;
   int outcount, i, j, totalCount, num_hex_chars, power16, hexstring_len, bigint_len, left, right;
   uint8_t inBuf[ENCODER_INBUFFSIZE_58], outBuf[ENCODER_OUTBUFFSIZE_58];
   totalCount = 0;
 
   /* -------------------------------------------------------------
   #
-  #     Read in data from fd (at most 256 bytes)
+  #     Read in data from fd (at most 255 bytes)
   #
   ------------------------------------------------------------- */
   nread = read(fd_in, inBuf, ENCODER_INBUFFSIZE_58 - 1);
@@ -159,7 +158,7 @@ void encodeBase58(int fd_in) {
     exit(-1);
   }
   if (nread >= ENCODER_INBUFFSIZE_58 - 1) {
-    printf("WARNING: ONLY ENCODING THE FIRST 256 BYTES. IF INPUT IS LARGER THAN 256 BYTES: EXPECT ERRORS\n");
+    printf("WARNING: ONLY ENCODING THE FIRST 255 BYTES. IF INPUT IS LARGER THAN 255 BYTES: DEFINITELY ERRORS\n");
   }
 
   /* -------------------------------------------------------------
