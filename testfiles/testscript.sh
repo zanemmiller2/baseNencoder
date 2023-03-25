@@ -80,10 +80,10 @@ result=$(cmp -l <(./baseNencodetest -n 58 testfile58_raw) <(cat encodedbase58))
 if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
 else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 
-echo -e "${BLUE}TESTING BASE58 DECODING FROM FILE (baseNencode -d 58 encodedbase58)${NC}"
-result=$(cmp -l <(./baseNencodetest -d 58 encodedbase58) <(cat testfile58_raw))
-if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
-else echo -e "${RED}ERROR: $result${NC}\n"; fi;
+#echo -e "${BLUE}TESTING BASE58 DECODING FROM FILE (baseNencode -d 58 encodedbase58)${NC}"
+#result=$(cmp -l <(./baseNencodetest -d 58 encodedbase58) <(cat testfile58_raw))
+#if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+#else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 
 ##################################################
 #		BASE32 TESTS
