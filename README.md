@@ -35,7 +35,7 @@ Takes at most 1 file path (or reads from standard input if no file path or file 
 
 <ins>base58 encoding</ins> is completed by reading in a complete stream of data -> converting it to a hexstring representing each byte of the input -> converting the hex string to an array of integers representing the digits of the integer value of the concatenated hexstring -> converting the arbitrarily large "integer" to its b58 representation. The program is limited to encoding at most 256 bytes.
 
-<ins>base58 decoding</ins> is completed by reading in data in blocks of up to eleven encoded bytes at a time and converting it to up to eight ascii characters. The program converts eleven bytes of input at a time do to the size limitations of unsigned long long integers in C.
+<ins>base58 decoding</ins> is completed by reading in data in a complete stream of data, converting the b58 indexes of each read in byte to a base10 integer and then converting to an ascii string with modulus division of 256.
 
 <ins>base64 encoding</ins> is completed by taking a block of three octets (24 bit string) and converting it to four BASE64 characters.
 
@@ -45,9 +45,7 @@ Takes at most 1 file path (or reads from standard input if no file path or file 
 
 <ins>basez85 decoding</ins> is completed by reading a block of five z85 characters and converting it to four ASCII characters. New line characters in the input are disregarded in decoding.
 
-Prints to standard output wrapping to a new line every 76 characters. Pads incomplete output strings with "=".
-
-**(Note: this base58 implementation is going to vary slightly from other versions due to the max unsigned integer limitations)**
+Prints to standard output wrapping to a new line every 76 characters in some formats. Pads incomplete output strings with "=".
 
 <br/>
 

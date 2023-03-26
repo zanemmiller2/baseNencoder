@@ -7,10 +7,10 @@ BLUE='\033[0;36m'
 CHECKMARK='\t\xE2\x9C\x94'
 
 echo -e "${BLUE}COMPILING SOURCE CODE............${NC}"
-gcc ../main.c ../base16encoder.c ../base16decoder.c ../base32encoder.c ../base32decoder.c ../base58encoder.c ../base58decoder.c ../base64encoder.c ../base64decoder.c ../basez85encoder.c ../basez85decoder.c ../parsecl.c ../writedecoded.c -o baseNencodetest
+gcc ../main.c ../base16encoder.c ../base16decoder.c ../base32encoder.c ../base32decoder.c ../base58encoder.c ../base58decoder.c ../base64encoder.c ../base64decoder.c ../basez85encoder.c ../basez85decoder.c ../parsecl.c ../writedecoded.c ../bigIntmath.c -o baseNencodetest
 
 
-gcc ../main.c ../base16encoder.c ../base16decoder.c ../base32encoder.c ../base32decoder.c ../base58encoder.c ../base58decoder.c ../base64encoder.c ../base64decoder.c ../basez85encoder.c ../basez85decoder.c ../parsecl.c ../writedecoded.c -o ../baseNencode
+gcc ../main.c ../base16encoder.c ../base16decoder.c ../base32encoder.c ../base32decoder.c ../base58encoder.c ../base58decoder.c ../base64encoder.c ../base64decoder.c ../basez85encoder.c ../basez85decoder.c ../parsecl.c ../writedecoded.c ../bigIntmath.c -o ../baseNencode
 
 ##################################################
 #		BASEz85 TESTS
@@ -80,10 +80,10 @@ result=$(cmp -l <(./baseNencodetest -n 58 testfile58_raw) <(cat encodedbase58))
 if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
 else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 
-#echo -e "${BLUE}TESTING BASE58 DECODING FROM FILE (baseNencode -d 58 encodedbase58)${NC}"
-#result=$(cmp -l <(./baseNencodetest -d 58 encodedbase58) <(cat testfile58_raw))
-#if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
-#else echo -e "${RED}ERROR: $result${NC}\n"; fi;
+echo -e "${BLUE}TESTING BASE58 DECODING FROM FILE (baseNencode -d 58 encodedbase58)${NC}"
+result=$(cmp -l <(./baseNencodetest -d 58 encodedbase58) <(cat testfile58_raw))
+if ["$result" == ""]; then echo -e "${GREEN}SUCCESS${CHECKMARK}${NC}\n";
+else echo -e "${RED}ERROR: $result${NC}\n"; fi;
 
 ##################################################
 #		BASE32 TESTS

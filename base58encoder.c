@@ -4,13 +4,14 @@
 // ------------ defines ------------
 #define ENCODER_INBUFFSIZE_58 257   // 256 + '\0'
 #define ENCODER_OUTBUFFSIZE_58 355  // 256 * 1.38 + '\0'
+#define B58_ENCODE_BASE 58
 
 /* convert_hex_to_string_int:
       takes an hexstring and converts its integer
       representation to an array of integers representing
       the digits of the arbitrarily large integer
 */
-void convert_hex_to_string_int(char string_hex[], int hexlen, uint8_t bigint[], int bigint_len, int power16) {
+void convert_hex_to_string_int(char string_hex[], int hexlen, unsigned int bigint[], int bigint_len, int power16) {
   int i = 0;
   int right, left, j;
   int hexval;
@@ -99,44 +100,6 @@ void convert_hex_to_string_int(char string_hex[], int hexlen, uint8_t bigint[], 
   // return
 }
 
-/* mod_bigint:
-      Returns the modulus of an arbitrarily large integer and an integer.
-*/
-int mod_bigint(uint8_t bigint[], int divisor, int bigint_len) {
-  int res = 0;
-  for (int i = 0; i < bigint_len; i++) {
-    res = ((res * 10) + bigint[i]) % divisor;
-  }
-  return res;
-}
-
-/* divide_bigint:
-      divides an arbitrarily large integer by an integer divisor.
-      Function modifies bigint[] with the resulting quotient and
-      returns the number of digits in the new quotient.
-*/
-int divide_bigint(uint8_t bigint[], int divisor, int bigint_len) {
-  int i, j;
-  int dividend = bigint[0];
-
-  i = 0;
-  while (i < bigint_len && dividend < divisor) {
-    bigint[i] = 0;
-    dividend = dividend * 10 + bigint[++i];
-  }
-
-  j = 0;
-  while (i < bigint_len) {
-    bigint[j++] = dividend / divisor;
-    dividend = ((dividend % divisor) * 10) + bigint[++i];
-  }
-  // return len of new big int
-  if (j == 0) {
-    return 0;
-  }
-  return j;
-
-}
 
 /* encodebase58:
       reads data from input_fd and encodes it in base58
@@ -189,8 +152,10 @@ void encodeBase58(int fd_in) {
   hexstring_len = power16 + 1;
   bigint_len = ((hexstring_len) * 1.2) / 1;
 
-  uint8_t bigint[bigint_len];
-  memset(bigint, 0, bigint_len);
+  unsigned int bigint[bigint_len];
+  for (i = 0; i < bigint_len; i++) {
+    bigint[i] = 0;
+  }
   convert_hex_to_string_int(hexstring, hexstring_len, bigint, bigint_len, power16);
 
 
@@ -201,9 +166,9 @@ void encodeBase58(int fd_in) {
   ------------------------------------------------------------- */
   j = 0;
   while (bigint_len > 0) {
-    int b58_index = mod_bigint(bigint, 58, bigint_len);
+    int b58_index = mod_bigint(bigint, B58_ENCODE_BASE, bigint_len);
     outBuf[j++] = alphabet58[b58_index];
-    bigint_len = divide_bigint(bigint, 58, bigint_len);
+    bigint_len = divide_bigint(bigint, B58_ENCODE_BASE, bigint_len);
     outcount += 1;
   }
 

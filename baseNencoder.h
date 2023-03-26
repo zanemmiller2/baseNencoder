@@ -37,3 +37,5 @@ void encodeBase16(int fd);
 void decodeBase16(int fd);
 void parsecl(int argc, char* argv[], char** option, char** baseN, char** file_name);
 void writedecoded(int fd_out, char* output, int outputBytes);
+int mod_bigint(unsigned int bigint[], int divisor, int bigint_len);
+int divide_bigint(unsigned int bigint[], int divisor, int bigint_len);
