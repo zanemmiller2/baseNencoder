@@ -1,5 +1,5 @@
 // --------- includes -------------
-#include "baseNencoder.h"
+#include "../baseNencoder.h"
 // ------------ defines ------------
 #define DECODER_INBUFFSIZE_58 355    // 256 * 1.38 + '\0'
 #define DECODER_OUTBUFFSIZE_58 257    // 256 + '\0'

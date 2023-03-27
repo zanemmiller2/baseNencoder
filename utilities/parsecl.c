@@ -1,5 +1,5 @@
 // --------- includes -------------
-#include "baseNencoder.h"
+#include "../baseNencoder.h"
 
 /* parsecl:   parses the command line arguments and assigns to respective variable */
 void parsecl(int argc, char* argv[], char** option, char** baseN, char** file_name) {

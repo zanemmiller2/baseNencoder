@@ -1,5 +1,5 @@
-// ------------ includes ------------
-#include "baseNencoder.h"
+// --------- includes -------------
+#include "../baseNencoder.h"
 
 // ------------ defines ------------
 #define ENCODER_INBUFFSIZE_58 257   // 256 + '\0'

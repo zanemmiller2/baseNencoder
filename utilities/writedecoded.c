@@ -1,5 +1,5 @@
 // --------- includes -------------
-#include "baseNencoder.h"
+#include "../baseNencoder.h"
 
 void writedecoded(int fd_out, char* output, int outputBytes) {
   size_t nwrite;

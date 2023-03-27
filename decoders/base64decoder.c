@@ -1,5 +1,5 @@
 // --------- includes -------------
-#include "baseNencoder.h"
+#include "../baseNencoder.h"
 // ------------ defines ------------
 #define DECODER_INBUFFSIZE_64 4
 #define DECODER_OUTBUFFSIZE_64 3
@@ -32,9 +32,9 @@ void decodeBase64(int fd_in) {
       perror("error");
       exit(-1);
     }
-    
+
     // stores valid base64 characters in the inBuf for processing
-    if(b64_isvalidchar(buffchar[0])){
+    if (b64_isvalidchar(buffchar[0])) {
       inBuf[count] = *buffchar;
       count++;
     }
@@ -66,9 +66,9 @@ void decodeBase64(int fd_in) {
       // bits 5 - 6 of input byte 3 top 6 bits of input byte 4
       outBuf[2] = (((indexes[2] << 4) & 0xC0) | (indexes[3] >> 2));
 
-      if(inBuf[DECODER_INBUFFSIZE_64 - 1] == '='){
+      if (inBuf[DECODER_INBUFFSIZE_64 - 1] == '=') {
         count -= 2;
-        }
+      }
 
       /* -------------------------- Write -------------------------- */
       writedecoded(STDOUT_FILENO, outBuf, count * 3 / 4);

@@ -1,5 +1,5 @@
 // --------- includes -------------
-#include "baseNencoder.h"
+#include "../baseNencoder.h"
 
 /* mod_bigint:
       Returns the modulus of an arbitrarily large integer and an integer.

@@ -1,5 +1,5 @@
 // --------- includes -------------
-#include "baseNencoder.h"
+#include "../baseNencoder.h"
 // ------------ defines ------------
 #define DECODER_INBUFFSIZE_16 3
 #define DECODER_OUTBUFFSIZE_16 2
@@ -30,9 +30,9 @@ void decodeBase16(int fd_in) {
       perror("error");
       exit(-1);
     }
-    
+
     // stores valid base64 characters in the inBuf for processing
-    if(b16_isvalidchar(buffchar[0])){
+    if (b16_isvalidchar(buffchar[0])) {
       inBuf[count] = *buffchar;
       count++;
     }
@@ -46,7 +46,7 @@ void decodeBase16(int fd_in) {
           printf("error: Invalid base16 character");  // should already be taken care of when prepping the input buffer
           exit(-1);
         }
-        
+
         for (i = 0; i < 17; i++) {
           if (alphabet16[i] == inBuf[j]) {
             indexes[j] = i;

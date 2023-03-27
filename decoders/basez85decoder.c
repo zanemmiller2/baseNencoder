@@ -1,78 +1,64 @@
 // --------- includes -------------
-#include "baseNencoder.h"
+#include "../baseNencoder.h"
 // ------------ defines ------------
-#define DECODER_INBUFFSIZE_58 12    // 11 + 1 for '\0'
-#define DECODER_OUTBUFFSIZE_58 9    // 8 + 1 for '\0'
+#define DECODER_INBUFFSIZE_Z85 6    // 5 + '\0'
+#define DECODER_OUTBUFFSIZE_Z85 5    // 4 + '\0'
 
 
-/* b58_isvalidchar:   checks for valid Base58 characters. Returns true if valid, false otherwise */
-int b58_isvalidchar(char c)
+/* bz85_isvalidchar:   checks for valid Basez85 characters. Returns true if valid, false otherwise */
+int bz85_isvalidchar(char c)
 {
-  // skip '0'
-  if (c >= '1' && c <= '9')
-    return true;
-  // skip 'I'
-  if (c >= 'A' && c <= 'H')
-    return true;
-  // skip 'O'
-  if (c >= 'J' && c <= 'N')
-    return true;
-  if (c >= 'P' && c <= 'Z')
-    return true;
-  // skip 'l'
-  if (c >= 'a' && c <= 'k')
-    return true;
-  if (c >= 'm' && c <= 'z')
-    return true;
-  return false;
+  // // skip '0'
+  // if (c <= ' ' || c == '"' || c == "\'" || c == ',' || c == ';' || c == '_' || c == '\\' || c == '`' || c >= '~')
+  //   return false;
+  if (c <= 32 || c == 34 || c == 39 || c == 44 || c == 59 || c == 92 || c == 95 || c == 96 || c >= 126)
+    return false;
+
+  return true;
 }
 
 
 /* decodeBase58:  decodes data in base58 format to ascii */
-void decodeBase58(int fd_in) {
+void decodeBasez85(int fd_in) {
   size_t nread, nwrite;
-  int i, j, incount, outcount;
-  uint8_t inBuf[DECODER_INBUFFSIZE_58], outBuf[DECODER_OUTBUFFSIZE_58], indexes[DECODER_INBUFFSIZE_58], buffchar[2];
+  int i, j, incount, outcount, numpads;
+  uint8_t inBuf[DECODER_INBUFFSIZE_Z85], outBuf[DECODER_OUTBUFFSIZE_Z85], indexes[DECODER_OUTBUFFSIZE_Z85];
   incount = 0;
   outcount = 0;
+  numpads = 0;
 
 
   /* -------------------------------------------------------------
   #
-  #     read in up to 11 encoded bytes at a time
+  #     read in up to 5 encoded bytes at a time
   #
   ------------------------------------------------------------- */
-  while ((nread = read(fd_in, inBuf, DECODER_INBUFFSIZE_58 - 1)) != 0) {
+  while ((nread = read(fd_in, inBuf, DECODER_INBUFFSIZE_Z85 - 1)) != 0) {
+    incount = nread;
     if (nread < 0) {
       perror("error");
       exit(-1);
     }
-    
-    incount = nread;
-    /* -------------------------------------------------------------
-    #
-    #     remove padding and new line characters
-    #
-    ------------------------------------------------------------- */
-    for(i = 0; i < nread; i++){
-      if(inBuf[i] == '=' || inBuf[i] == '\n'){
-        incount--;
-      }
+
+    // skip over new line characters
+    if (inBuf[incount - 1] == '\n') {
+      --incount;
     }
+
 
     /* -------------------------------------------------------------
     #
-    #     convert the input bytes to their base58 index values
+    #     convert the input bytes to their basez85 index values
     #
     ------------------------------------------------------------- */
     for (j = 0; j < incount; j++) {
-      if (!b58_isvalidchar(inBuf[j])) {
-        printf("error: Invalid base58 character"); 
+      if (!bz85_isvalidchar(inBuf[j])) {
+        printf("error: Invalid basez85 character");
         exit(-1);
       }
 
-      for (i = 0; i < 58; i++) {
-        if (alphabet58[i] == inBuf[j]) {
+      for (i = 0; i < 85; i++) {
+        if (alphabetz85[i] == inBuf[j]) {
           indexes[j] = i;
           break;
         }
@@ -87,7 +73,7 @@ void decodeBase58(int fd_in) {
     unsigned long long int decnum = 0;
     for (i = 0; i < incount - 1; i++) {
       decnum += indexes[i];
-      decnum *= 58;
+      decnum *= 85;
     }
     decnum += indexes[i];
 
@@ -97,7 +83,7 @@ void decodeBase58(int fd_in) {
     #
     ------------------------------------------------------------- */
     i = 0;
-    while (decnum > 0){
+    while (decnum > 0) {
       outBuf[i++] = decnum % 256;
       decnum /= 256;
       outcount += 1;
@@ -128,11 +114,12 @@ void decodeBase58(int fd_in) {
     #     sanitzie the arrays/variables
     #
     ------------------------------------------------------------- */
-    memset(outBuf, 0, DECODER_OUTBUFFSIZE_58);
-    memset(indexes, 0, DECODER_INBUFFSIZE_58);
-    memset(inBuf, 0, DECODER_INBUFFSIZE_58);
+    memset(outBuf, 0, DECODER_OUTBUFFSIZE_Z85);
+    memset(indexes, 0, DECODER_INBUFFSIZE_Z85);
+    memset(inBuf, 0, DECODER_INBUFFSIZE_Z85);
     outcount = 0;
     incount = 0;
   }
+  write(STDOUT_FILENO, "\n", sizeof(char));   // write new line at end
 }
 
