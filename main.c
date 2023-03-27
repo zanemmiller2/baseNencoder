@@ -21,7 +21,15 @@ int main(int argc, char* argv[]) {
   }
 
   /* ------------------------ Encode/Decode ------------------------ */
-
+  /* -------- help --------*/
+  if (strcmp(option, "-h") == 0) {
+    char printbuf[100];
+    ssize_t nread;
+    while ((nread = read(fd, printbuf, 100)) != 0) {
+      write(STDOUT_FILENO, printbuf, nread);
+    }
+    exit(0);
+  }
   /* ------ BASEZ85 ------ */
   if (strcmp(baseN, "z85") == 0 || strcmp(baseN, "Z85") == 0) {
     // decode base64

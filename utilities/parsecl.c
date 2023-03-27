@@ -26,6 +26,7 @@ void parsecl(int argc, char* argv[], char** option, char** baseN, char** file_na
   }
 
   else if (argc == 3) {
+
     // encode/decode in provided baseN from file path
     if ((strcmp(argv[1], "-n") == 0 || strcmp(argv[1], "-d") == 0) &&
       (strcmp(argv[2], "z85") == 0 || strcmp(argv[2], "Z85") == 0 || strcmp(argv[2], "64") == 0 ||
@@ -46,7 +47,12 @@ void parsecl(int argc, char* argv[], char** option, char** baseN, char** file_na
 
 
   else if (argc == 2) {
-    if (strcmp(argv[1], "-n") == 0) {
+    if (strcmp(argv[1], "-h") == 0) {
+      *option = argv[1];
+      *file_name = "utilities/manpage.txt";
+    }
+
+    else if (strcmp(argv[1], "-n") == 0) {
       printf("error: missing baseN value and file\n");
       exit(-1);
     }

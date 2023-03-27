@@ -1,0 +1,29 @@
+(1)                                    baseNencode Manual                                             (1)
+
+NAME
+      baseNencode -- encode and decode data in different base schemes
+
+SYNOPSIS
+      baseNencode [OPTION]...[FILE] 
+
+DESCRIPTION
+      The baseNencode function encodes and decodes between ASCII and a provided base system. 
+
+      With no FILE, or when FILE is -, read standard input.
+
+      -n base
+            encode input in the provided base system
+      -d base
+            decode input in provided base to ASCII
+      -h
+            print this manual page
+  
+CAVEATS
+      baseNencode supports ASICC <--> Base conversions for Base16, Base32, Base58, Base64, and Basez85 systems. 
+      For Base58, the input is limited to 256 bytes of ASCII input for memory and time performance, and limited 
+      applications for Base58 encoding/decoding beyond 256 bytes. 
+
+AUTHOR 
+      (c) 2023 by Zane Miller
+      <millerzanem@gmail.com>
+

@@ -10,6 +10,7 @@
 // ------------ global defines ------------
 #define MAXLINE76 76
 #define MAXLINE60 60
+#define HELPDOC "README.md"
 
 
 // Check that uint8_t type exists
